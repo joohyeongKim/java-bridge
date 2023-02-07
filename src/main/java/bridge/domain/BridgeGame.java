@@ -1,15 +1,18 @@
-package bridge;
+package bridge.domain;
+
+import bridge.interfaces.Game;
 
 /**
  * 다리 건너기 게임을 관리하는 클래스
  */
-public class BridgeGame {
+public class BridgeGame implements Game {
 
     /**
      * 사용자가 칸을 이동할 때 사용하는 메서드
      * <p>
      * 이동을 위해 필요한 메서드의 반환 타입(return type), 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
      */
+    @Override
     public void move() {
     }
 
@@ -18,6 +21,20 @@ public class BridgeGame {
      * <p>
      * 재시작을 위해 필요한 메서드의 반환 타입(return type), 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
      */
+    @Override
     public void retry() {
+
+    }
+
+    // 게임을 종료할 때까지 시도한 횟수를 관리하라
+    @Override
+    public void manageTryNumber() {
+
+    }
+
+    // 다리를 끝까지 건너면 게임을 종료하라
+    @Override
+    public void quitGame() {
+
     }
 }
