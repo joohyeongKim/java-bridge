@@ -1,5 +1,9 @@
 package bridge.domain;
 
+import static bridge.ui.MessageType.INVALID_COMMAND;
+import static bridge.ui.MessageType.INVALID_FORMAT;
+import static bridge.ui.MessageType.INVALID_MOVING;
+import static bridge.ui.MessageType.INVALID_RANGE;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -20,12 +24,37 @@ class ValidatorTest {
         this.inputValidator = new Validator();
     }
 
+
+    @ParameterizedTest
+    @ValueSource(ints = {1, 21, 999})
+    void 범위를_벗어난_값_입력(int bridgeSize){
+        assertThatThrownBy(() -> inputValidator.validateRange(bridgeSize))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(INVALID_RANGE.messaging());
+    }
+
     @ParameterizedTest
     @ValueSource(strings = {"삼","twenty", " ", ""})
     void 숫자가_아닌_값을_입력(String bridgeSize){
         assertThatThrownBy(() -> inputValidator.validateBridgeSize(bridgeSize))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("[ERROR] 잘못된 형식입니다. 올바른 값을 입력해주세요");
+                .hasMessage(INVALID_FORMAT.messaging());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"위","아래", "u", "d"," ",""," U"})
+    public void U와_D가_아닌_값을_입력(String move){
+        assertThatThrownBy(() -> inputValidator.validateMove(move))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(INVALID_MOVING.messaging());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"r", "q", "Quit", "배가 너무 고파요"})
+    public void 재시도_여부가_아닌_값을_입력(String command){
+        assertThatThrownBy(() -> inputValidator.validateCommand(command))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(INVALID_COMMAND.messaging());
     }
 
 }
