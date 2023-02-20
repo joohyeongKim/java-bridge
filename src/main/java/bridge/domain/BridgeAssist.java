@@ -17,7 +17,7 @@ public enum BridgeAssist {
         this.bridgeRow = bridgeRow;
     }
 
-    public String buildRow(int randomNumber) {
+    public static String buildRow(int randomNumber) {
         return Arrays.stream(values())
                 .filter(number -> number.randomNumber == randomNumber)
                 .findFirst()
