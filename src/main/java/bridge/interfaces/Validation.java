@@ -2,6 +2,6 @@ package bridge.interfaces;
 
 public interface Validation {
 
-    public void validate();
+    public void validateBridgeSize(String bridgeSize);
 
 }
