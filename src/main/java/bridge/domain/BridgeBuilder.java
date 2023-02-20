@@ -11,4 +11,7 @@ public enum BridgeBuilder {
         this.bridgeRow = bridgeRow;
     }
 
+    public String getBridgeRow() {
+        return bridgeRow;
+    }
 }
